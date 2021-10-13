@@ -43,4 +43,4 @@ jobs:
     - name: Push generated package to GitHub registry
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: nuget push ./package/*.nupkg  --api-key ${{secrets.GITHUB_TOKEN}}
+      run: nuget push ./package/*.nupkg  --ApiKey ${{secrets.GITHUB_TOKEN}}
