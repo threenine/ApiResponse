@@ -13,6 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+          versionSpec: '5.x'
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
@@ -23,3 +27,8 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Pack nuget
+      run: dotnet pack src/Threenine.ApiResponse.csproj --configuration release -o:package /p:PackageVersion=${{ steps.gitversion.outputs.AssemblySemVer }}
+
+    - name: Push generated package to GitHub registry
+      run: nuget push ./package/*.nupkg 
