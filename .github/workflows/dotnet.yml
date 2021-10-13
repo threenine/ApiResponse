@@ -43,4 +43,4 @@ jobs:
     - name: Push generated package to GitHub registry
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: dotnet nuget push ./package/*.nupkg  --source https://nuget.pkg.github.com/threenine/index.json   --api-key ${{secrets.GITHUB_TOKEN}}
+      run: dotnet nuget push ./package/*.nupkg  --source https://nuget.pkg.github.com/threenine/index.json   --api-key ${{secrets.GARY_PAT}}
