@@ -34,7 +34,7 @@ jobs:
           useConfigFile: true
           configFilePath: ./.github/gitversion.yml
     - name: Pack nuget
-      run: dotnet pack src/Threenine.ApiResponse/Threenine.ApiResponse.csproj --configuration release -o:package /p:PackageVersion=${{ steps.gitversion.outputs.AssemblySemVer }}
+      run: dotnet pack ApiResponse.sln --configuration release -o:package /p:PackageVersion=${{ steps.gitversion.outputs.AssemblySemVer }}
 
     - name: Push generated package to GitHub registry
       run: nuget push ./package/*.nupkg 
