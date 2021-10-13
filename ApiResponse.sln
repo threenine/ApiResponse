@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threenine.ApiResponse", "src\Threenine.ApiResponse\Threenine.ApiResponse.csproj", "{BFDA6D5E-6CFA-412C-99CC-D7317EC2B48C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3CB1EB80-8AEB-489C-A142-019FFADB36C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threenine.ApiResponse.Tests", "tests\Threenine.ApiResponse.Tests\Threenine.ApiResponse.Tests.csproj", "{7AF5A2CF-2D1B-4B1C-8C3E-6C32A5C6FD97}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BFDA6D5E-6CFA-412C-99CC-D7317EC2B48C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFDA6D5E-6CFA-412C-99CC-D7317EC2B48C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFDA6D5E-6CFA-412C-99CC-D7317EC2B48C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFDA6D5E-6CFA-412C-99CC-D7317EC2B48C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AF5A2CF-2D1B-4B1C-8C3E-6C32A5C6FD97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AF5A2CF-2D1B-4B1C-8C3E-6C32A5C6FD97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AF5A2CF-2D1B-4B1C-8C3E-6C32A5C6FD97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AF5A2CF-2D1B-4B1C-8C3E-6C32A5C6FD97}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7AF5A2CF-2D1B-4B1C-8C3E-6C32A5C6FD97} = {3CB1EB80-8AEB-489C-A142-019FFADB36C4}
+	EndGlobalSection
+EndGlobal

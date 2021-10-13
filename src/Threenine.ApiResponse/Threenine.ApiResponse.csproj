@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <IsPackable>true</IsPackable>
+        <Title>API Response</Title>
+        <Authors>Gary Woodfine</Authors>
+        <Description>Standardised API Response</Description>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>api project, api endpoints, response</PackageTags>
+        <RepositoryUrl>https://github.com/threenine/api-template</RepositoryUrl>
+        <Copyright>Copyright © 2005 - 2021 Three Nine Consulting Limited</Copyright>
+        <PackageProjectUrl>https://threenine.co.uk</PackageProjectUrl>
+        <PackageIconUrl>http://static.threenine.co.uk/threenine_icon.png</PackageIconUrl>
+    </PropertyGroup>
+
+</Project>
