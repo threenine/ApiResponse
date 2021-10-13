@@ -41,4 +41,6 @@ jobs:
       run: dotnet pack ApiResponse.sln --configuration release -o:package /p:PackageVersion=${{ steps.gitversion.outputs.AssemblySemVer }}
 
     - name: Push generated package to GitHub registry
-      run: nuget push ./package/*.nupkg -ApiKey ${{secrets.GITHUB_TOKEN}}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: nuget push ./package/*.nupkg  --api-key ${{secrets.GITHUB_TOKEN}}
