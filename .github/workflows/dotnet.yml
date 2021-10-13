@@ -27,6 +27,12 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Determine Version
+      id: gitversion
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      with:
+          useConfigFile: true
+          configFilePath: ./.github/gitversion.yml
     - name: Pack nuget
       run: dotnet pack src/Threenine.ApiResponse/Threenine.ApiResponse.csproj --configuration release -o:package /p:PackageVersion=${{ steps.gitversion.outputs.AssemblySemVer }}
 
