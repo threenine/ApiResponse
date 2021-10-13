@@ -37,6 +37,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
       run: dotnet build ApiResponse.sln --configuration release /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }} --no-restore
      
     - name: Pack nuget
