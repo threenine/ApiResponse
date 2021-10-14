@@ -1,4 +1,4 @@
-name: .NET
+name: nuget-build-deploy
 
 on:
   push:
