@@ -2,9 +2,15 @@ name: .NET
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - release/*
+      - feature/*
   pull_request:
-    branches: [ main ]
+    branches: 
+      - main
+      - release/*
+      - feature/*
 
 jobs:
   build:
@@ -25,10 +31,13 @@ jobs:
           configFilePath: ./.github/gitversion.yml    
     - name: Restore dependencies
       run: dotnet restore
+      
     - name: Build
       run: dotnet build ApiResponse.sln --configuration release /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }} --no-restore
+      
     - name: Run Tests
-      run: dotnet test --configuration Release /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} --no-build
+      run: dotnet test --configuration Release /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} --no-build --verbosity normal
+      
     - name: Pack nuget
       run: dotnet pack ApiResponse.sln --configuration release -o:package /p:PackageVersion=${{ steps.gitversion.outputs.AssemblySemVer }}
 
