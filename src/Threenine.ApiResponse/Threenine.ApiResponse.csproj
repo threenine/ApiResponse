@@ -13,6 +13,7 @@
         <Copyright>Copyright © 2005 - 2021 Three Nine Consulting Limited</Copyright>
         <PackageProjectUrl>https://threenine.co.uk</PackageProjectUrl>
         <PackageIconUrl>https://static.threenine.co.uk/threenine_icon.png</PackageIconUrl>
+        
     </PropertyGroup>
 
 </Project>

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Threenine.ApiResponse
 {
-    public class ListResponse<TModel> : BaseResponse  where TModel : class
+    public class ListResponse<TModel> : BaseResponse, IListResponse<TModel> where TModel : class
     {
         public ListResponse(IList<TModel> model, IList<string> validationErrors = null) : base(validationErrors)
         {
