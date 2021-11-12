@@ -15,6 +15,6 @@ namespace Threenine.ApiResponse
 
         public bool IsValid => !_errorMessages.Any();
 
-        public IReadOnlyCollection<string> Errors => new ReadOnlyCollection<string>(_errorMessages);
+        public IList<string> Errors => _errorMessages;
     }
 }
