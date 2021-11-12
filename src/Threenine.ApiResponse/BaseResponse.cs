@@ -7,11 +7,7 @@ namespace Threenine.ApiResponse
     public abstract  class BaseResponse
     {
         private readonly IList<string> _errorMessages;
-
-        public BaseResponse()
-        {
-            
-        }
+        
         protected BaseResponse(IList<string> errors = null)
         {
             _errorMessages = errors ?? new List<string>();
