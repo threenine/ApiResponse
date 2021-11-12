@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Threenine.ApiResponse
 {
-    public abstract class BaseResponse
+    public  class BaseResponse
     {
         private readonly IList<string> _errorMessages;
 
