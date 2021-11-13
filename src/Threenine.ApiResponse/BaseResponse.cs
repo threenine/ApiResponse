@@ -6,15 +6,15 @@ namespace Threenine.ApiResponse
 {
     public abstract  class BaseResponse
     {
-        private readonly IList<string> _errorMessages;
+        private readonly IList<KeyValuePair<string, string[]>> _errorMessages;
         
-        protected BaseResponse(IList<string> errors = null)
+        protected BaseResponse( IList<KeyValuePair<string, string[]>> errors = null)
         {
-            _errorMessages = errors ?? new List<string>();
+            _errorMessages = errors ?? new List<KeyValuePair<string, string[]>>();
         }
 
         public bool IsValid => !_errorMessages.Any();
 
-        public IList<string> Errors => _errorMessages;
+        public IList<KeyValuePair<string, string[]>> Errors => _errorMessages;
     }
 }

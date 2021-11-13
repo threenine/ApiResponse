@@ -18,7 +18,7 @@ namespace Threenine.ApiResponse.Tests
             testClass.IsValid.ShouldBeAssignableTo<bool>();
             testClass.Page.ShouldBeAssignableTo<int>();
             testClass.PerPage.ShouldBeAssignableTo<int>();
-            testClass.Errors.ShouldBeAssignableTo<IReadOnlyCollection<string>>();
+            testClass.Errors.ShouldBeAssignableTo< IList<KeyValuePair<string, string[]>>>();
         }
 
         [Fact]
