@@ -4,9 +4,10 @@ namespace Threenine.ApiResponse
 {
     public class SingleResponse<TModel> : BaseResponse, ISingleResponse<TModel> where TModel : class 
     {
-        public SingleResponse( IList<string> validationErrors = null) : base(validationErrors)
+        public SingleResponse(TModel model, IList<string> validationErrors = null) : base(validationErrors)
         {
+            Item = model;
         }
-        public TModel Item => null;
+        public TModel Item { get; }
     }
 }
