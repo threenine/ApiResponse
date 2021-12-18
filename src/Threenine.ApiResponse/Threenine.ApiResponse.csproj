@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <IsPackable>true</IsPackable>
         <Title>API Response</Title>
@@ -13,6 +12,7 @@
         <Copyright>Copyright © 2005 - 2021 Three Nine Consulting Limited</Copyright>
         <PackageProjectUrl>https://threenine.co.uk</PackageProjectUrl>
         <PackageIconUrl>https://static.threenine.co.uk/threenine_icon.png</PackageIconUrl>
+        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
         
     </PropertyGroup>
 
