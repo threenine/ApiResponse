@@ -1,5 +1,6 @@
 branches:
   main:
+    next-version: 1.0
     tag: ''
     increment: inherit
     source-branches:
