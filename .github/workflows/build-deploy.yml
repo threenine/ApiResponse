@@ -43,6 +43,7 @@ jobs:
     - name: Build dotnet 
       run: dotnet build ApiResponse.sln --configuration release /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} /p:AssemblyVersion=${{ steps.gitversion.outputs.AssemblySemVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.InformationalVersion }} --no-restore
       
+      
     - name: Run Tests
       run: dotnet test ApiResponse.sln --configuration Release /p:Version=${{ steps.gitversion.outputs.AssemblySemVer }} --no-build --verbosity normal
       
