@@ -13,6 +13,6 @@ namespace Threenine.ApiResponse
     /// <typeparam name="TModel"></typeparam>
     public interface IListResponse<TModel> : IListResponse where TModel : class
     {
-        IList<TModel> Items { get; } 
+        List<TModel> Items { get; } 
     }
 }

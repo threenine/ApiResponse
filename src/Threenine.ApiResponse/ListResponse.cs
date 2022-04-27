@@ -4,7 +4,7 @@ namespace Threenine.ApiResponse
 {
     public class ListResponse<TModel> : BaseResponse, IListResponse<TModel> where TModel : class
     {
-        public ListResponse(IList<TModel> model,  IList<KeyValuePair<string, string[]>> validationErrors = null) : base(validationErrors)
+        public ListResponse(List<TModel> model,  IList<KeyValuePair<string, string[]>> validationErrors = null) : base(validationErrors)
         {
             Items = model;
         }
@@ -14,7 +14,7 @@ namespace Threenine.ApiResponse
         public int Page { get; set; }
         public int PerPage { get; set; }
         public int TotalPages { get; set; }
-        public IList<TModel> Items { get; }
+        public List<TModel> Items { get; }
         public bool  HasPrevious { get; set; }
         public bool HasNext { get; set; }
         
