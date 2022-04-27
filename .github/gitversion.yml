@@ -1,13 +1,10 @@
-
+mode: Mainline
 branches:
   main:
     tag: ''
     increment: inherit
     source-branches:
-      - develop
-      - release
-      - feature
-      - hotfix
+      - main
     is-release-branch: true
   feature:
     increment: Minor
