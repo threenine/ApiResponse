@@ -4,7 +4,7 @@ namespace Threenine.ApiResponse
 {
     public class ListResponse<TModel> : BaseResponse, IListResponse<TModel> where TModel : class
     {
-        public ListResponse(List<TModel> model,  IList<KeyValuePair<string, string[]>> validationErrors = null) : base(validationErrors)
+        public ListResponse(List<TModel> model,  List<KeyValuePair<string, string[]>> validationErrors = null) : base(validationErrors)
         {
             Items = model;
         }
