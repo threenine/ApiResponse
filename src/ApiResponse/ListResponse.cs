@@ -16,6 +16,5 @@ namespace Threenine.ApiResponse
         public List<TModel> Items { get; }
         public bool  HasPrevious { get; set; }
         public bool HasNext { get; set; }
-        
     }
 }
