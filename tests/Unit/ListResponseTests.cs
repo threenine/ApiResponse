@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -43,8 +44,27 @@ namespace Threenine.ApiResponse.Tests
             
             
         }
-    }
+        
+        [Theory, Description("Ensure ListResponse has properties defined")]
+        [InlineData("Items", typeof(List<DummyListResponseClass>))]
+        [InlineData("Size", typeof(int))]
+        [InlineData("Page", typeof(int))]
+        [InlineData("PerPage", typeof(int))]
+        [InlineData("TotalPages", typeof(int))]
+        [InlineData("HasPrevious", typeof(bool))]
+        [InlineData("HasNext", typeof(bool))]
+        public void Should_have_base_fields_defined(string name, Type type)
+        {
+            var testClass = typeof(ListResponse<DummyListResponseClass>);
+            var prop = testClass.GetProperty(name);
 
+            prop.ShouldSatisfyAllConditions(
+                () => prop.ShouldNotBeNull(),
+                () => prop?.PropertyType.ShouldBeEquivalentTo(type)
+            );
+        }
+    }
+   
     public class DummyListResponseClass
     {
         public string Name { get; set; }
