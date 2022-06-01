@@ -6,8 +6,6 @@ on:
   pull_request:
     branches: 
       - main
-
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,10 +13,13 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-          dotnet-version: 6.0.x         
-    - name: Install dotnet tool manifest
-      run: dotnet new tool-manifest
-    - name: Install dotnet cake 
-      run: dotnet tool install Cake.Tool
+          dotnet-version: 6.0.x 
     - name: Run cake
-      run: dotnet cake
+      shell : bash
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        GITHUB_TOKEN: ${{ github.token }}
+      run: |
+        dotnet new tool-manifest
+        dotnet tool install Cake.Tool
+        dotnet cake

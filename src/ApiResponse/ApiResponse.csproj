@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <IsPackable>true</IsPackable>
+       
+        <PackageIconUrl>https://static.threenine.co.uk/threenine_icon.png</PackageIconUrl>
+        
+        
+    </PropertyGroup>
+
+</Project>

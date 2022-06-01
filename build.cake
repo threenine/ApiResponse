@@ -3,6 +3,8 @@
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 string version = String.Empty;
+var nuget_api_key =  context.EnvironmentVariable("NUGET_API_KEY");
+var github_token = context.EnvironmentVariable("GITHUB_TOKEN");
 //////////////////////////////////////////////////////////////////////
 // TASKS
 //////////////////////////////////////////////////////////////////////
@@ -11,6 +13,7 @@ Task("Clean")
     .Does(() => {
     DotNetClean("./");
 });
+
 Task("Restore")
     .IsDependentOn("Clean")
     .Description("Restoring the solution dependencies")
@@ -26,20 +29,23 @@ Task("Restore")
 
 Task("Version")
   .IsDependentOn("Restore")
-    .Does(() =>
-{
+    .Does(() => {
    var result = GitVersion(new GitVersionSettings {
         UpdateAssemblyInfo = true
     });
     
     version = result.NuGetVersionV2;
-    Information($"Version: { version.ToString() }");
+    Information($"Version: { version }");
 });
 Task("Build")
     .IsDependentOn("Version")
     .Does(() => {
      var buildSettings = new DotNetBuildSettings {
                         Configuration = configuration,
+                        MSBuildSettings = new DotNetMSBuildSettings()
+                                                      .WithProperty("Version", version)
+                                                      .WithProperty("AssemblyVersion", version)
+                                                      .WithProperty("FileVersion", version)
                        };
      var projects = GetFiles("./**/*.csproj");
      foreach(var project in projects )
@@ -48,8 +54,6 @@ Task("Build")
          DotNetBuild(project.ToString(),buildSettings);
      }
 });
-
-
 
 Task("Test")
     .IsDependentOn("Build")
@@ -65,8 +69,6 @@ Task("Test")
        Information($"Running Tests : { project.ToString()}");
        DotNetTest(project.ToString(), testSettings );
      }
-
-
 });
 
 Task("Pack")
@@ -79,12 +81,11 @@ Task("Pack")
         OutputDirectory = "./.artifacts",
         MSBuildSettings = new DotNetMSBuildSettings()
                         .WithProperty("PackageVersion", version)
-                        .WithProperty("Copyright", $"Copyright Kingsbridge {DateTime.Now.Year}")
+                        .WithProperty("Copyright", $"Copyright threenine.co.uk {DateTime.Now.Year}")
                         .WithProperty("Version", version)
     };
     
     DotNetPack("./ApiResponse.sln", settings);
- 
  });
 
 

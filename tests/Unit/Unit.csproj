@@ -5,6 +5,8 @@
         <IsPackable>false</IsPackable>
 
         <TargetFramework>net6.0</TargetFramework>
+
+        <RootNamespace>Threenine.ApiResponse.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -23,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Threenine.ApiResponse\Threenine.ApiResponse.csproj" />
+      <ProjectReference Include="..\..\src\ApiResponse\ApiResponse.csproj" />
     </ItemGroup>
 
 </Project>
