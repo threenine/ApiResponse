@@ -21,4 +21,4 @@ jobs:
     - name: Install dotnet cake 
       run: dotnet tool install Cake.Tool
     - name: Run cake
-      run: dotnet dotnet-cake 
+      run: dotnet cake
