@@ -1,47 +1,61 @@
+#tool "dotnet:?package=GitVersion.Tool&version=5.10.3"
+
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
-
+string version = String.Empty;
 //////////////////////////////////////////////////////////////////////
 // TASKS
 //////////////////////////////////////////////////////////////////////
 
 Task("Clean")
     .Does(() => {
-    DotNetCoreClean("./");
+    DotNetClean("./");
+});
+Task("Restore")
+    .IsDependentOn("Clean")
+    .Description("Restoring the solution dependencies")
+    .Does(() => {
+           var projects = GetFiles("./**/*.csproj");
+
+              foreach(var project in projects )
+              {
+                  Information($"Building { project.ToString()}");
+                  DotNetRestore(project.ToString());
+              } 
 });
 
+Task("Version")
+  .IsDependentOn("Restore")
+    .Does(() =>
+{
+   var result = GitVersion(new GitVersionSettings {
+        UpdateAssemblyInfo = true
+    });
+    
+    version = result.NuGetVersionV2;
+    Information($"Version: { version.ToString() }");
+});
 Task("Build")
-    .IsDependentOn("Clean")
+    .IsDependentOn("Version")
     .Does(() => {
-     var buildSettings = new DotNetCoreBuildSettings {
+     var buildSettings = new DotNetBuildSettings {
                         Configuration = configuration,
                        };
      var projects = GetFiles("./**/*.csproj");
      foreach(var project in projects )
      {
          Information($"Building {project.ToString()}");
-         DotNetCoreBuild(project.ToString(),buildSettings);
+         DotNetBuild(project.ToString(),buildSettings);
      }
 });
 
-Task("Restore")
-    .Description("Restoring the solution dependencies")
-    .Does(() => {
-           var projects = GetFiles("./src/*.csproj");
 
-              foreach(var project in projects )
-              {
-                  Information($"Building { project.ToString()}");
-                  DotNetCoreRestore(project.ToString());
-              }
-
-});
 
 Task("Test")
     .IsDependentOn("Build")
     .Does(() => {
 
-       var testSettings = new DotNetCoreTestSettings  {
+       var testSettings = new DotNetTestSettings  {
                                   Configuration = configuration,
                                   NoBuild = true,
                               };
@@ -49,11 +63,29 @@ Task("Test")
      foreach(var project in projects )
      {
        Information($"Running Tests : { project.ToString()}");
-       DotNetCoreTest(project.ToString(), testSettings );
+       DotNetTest(project.ToString(), testSettings );
      }
 
 
 });
+
+Task("Pack")
+ .IsDependentOn("Test")
+ .Does(() => {
+ 
+   var settings = new DotNetPackSettings
+    {
+        Configuration = configuration,
+        OutputDirectory = "./.artifacts",
+        MSBuildSettings = new DotNetMSBuildSettings()
+                        .WithProperty("PackageVersion", version)
+                        .WithProperty("Copyright", $"Copyright Kingsbridge {DateTime.Now.Year}")
+                        .WithProperty("Version", version)
+    };
+    
+    DotNetPack("./ApiResponse.sln", settings);
+ 
+ });
 
 
 //////////////////////////////////////////////////////////////////////
@@ -63,7 +95,9 @@ Task("Test")
 Task("Default")
        .IsDependentOn("Clean")
        .IsDependentOn("Restore")
+       .IsDependentOn("Version")
        .IsDependentOn("Build")
-       .IsDependentOn("Test");
+       .IsDependentOn("Test")
+       .IsDependentOn("Pack");
 
 RunTarget(target);
