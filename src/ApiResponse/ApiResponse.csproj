@@ -4,6 +4,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <IsPackable>true</IsPackable>
         <PackageIcon>icon.png</PackageIcon>
+        <AssemblyName>Threenine.ApiResponse</AssemblyName>
         
         
     </PropertyGroup>
