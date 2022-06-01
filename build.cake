@@ -1,10 +1,9 @@
 #tool "dotnet:?package=GitVersion.Tool&version=5.10.3"
 
+
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 string version = String.Empty;
-var nuget_api_key =  context.EnvironmentVariable("NUGET_API_KEY");
-var github_token = context.EnvironmentVariable("GITHUB_TOKEN");
 //////////////////////////////////////////////////////////////////////
 // TASKS
 //////////////////////////////////////////////////////////////////////
@@ -87,6 +86,34 @@ Task("Pack")
     
     DotNetPack("./ApiResponse.sln", settings);
  });
+Task("PublishNuget")
+ .IsDependentOn("Pack")
+ .Does(context => {
+         
+         foreach(var file in GetFiles("./.artifacts/*.nupkg"))
+          {
+            Information("Publishing {0}...", file.GetFilename().FullPath);
+                 DotNetNuGetPush(file, new DotNetNuGetPushSettings {
+                     ApiKey = context.EnvironmentVariable("NUGET_API_KEY"),
+                     Source = "https://api.nuget.org/v3/index.json"
+                 });
+          }
+ }); 
+ 
+ Task("PublishGithub")
+  .IsDependentOn("Pack")
+  .Does(context => {
+  
+      foreach(var file in GetFiles("./.artifacts/*.nupkg"))
+               {
+                      Information("Publishing {0}...", file.GetFilename().FullPath);
+                       DotNetNuGetPush(file, new DotNetNuGetPushSettings {
+                          ApiKey = EnvironmentVariable("GITHUB_TOKEN"),
+                          Source = "https://nuget.pkg.github.com/threenine/index.json"
+                      });
+               }  
+  }); 
+
 
 
 //////////////////////////////////////////////////////////////////////
@@ -99,6 +126,8 @@ Task("Default")
        .IsDependentOn("Version")
        .IsDependentOn("Build")
        .IsDependentOn("Test")
-       .IsDependentOn("Pack");
+       .IsDependentOn("Pack")
+       .IsDependentOn("PublishNuget")
+       .IsDependentOn("PublishGithub");
 
 RunTarget(target);

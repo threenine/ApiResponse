@@ -3,10 +3,14 @@
     <PropertyGroup>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <IsPackable>true</IsPackable>
-       
-        <PackageIconUrl>https://static.threenine.co.uk/threenine_icon.png</PackageIconUrl>
+        <PackageIcon>icon.png</PackageIcon>
         
         
     </PropertyGroup>
+    <ItemGroup>
+        <Content Include="icon.png" Pack="true" PackagePath="\">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
 </Project>
