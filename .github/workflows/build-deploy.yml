@@ -23,7 +23,7 @@ jobs:
       uses: gittools/actions/gitversion/execute@v0.9.13
       with:
         useConfigFile: true      
-        configFilePath: .github/GitVersion.yml
+        configFilePath: ~/.github/GitVersion.yml
     - name: Check out Code
       uses: actions/checkout@v2
       with:
