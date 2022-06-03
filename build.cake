@@ -34,6 +34,7 @@ Task("Version")
     version = result.NuGetVersionV2;
     Information($"Version: { version }");
 });
+
 Task("Build")
     .IsDependentOn("Version")
     .Does(() => {

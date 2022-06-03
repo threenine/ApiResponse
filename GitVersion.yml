@@ -9,7 +9,7 @@ branches:
   feature:
     increment: Minor
     tag: alpha
-  release:sd
+  release:
     increment: Minor
     tag: beta
     is-release-branch: false
