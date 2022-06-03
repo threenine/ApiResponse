@@ -17,7 +17,7 @@ jobs:
     - name: Check out Code
       uses: actions/checkout@v2
       with:
-         fetch-depth: 3
+         fetch-depth: 0
     - name: Run cake
       shell : bash
       env:
