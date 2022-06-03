@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Threenine.ApiResponse
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public abstract  class BaseResponse
     {
         protected BaseResponse( List<KeyValuePair<string, string[]>> errors = null)

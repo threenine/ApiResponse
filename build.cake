@@ -1,6 +1,5 @@
 #tool "dotnet:?package=GitVersion.Tool&version=5.10.3"
 
-
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 string version = String.Empty;
@@ -27,7 +26,6 @@ Task("Restore")
 });
 
 Task("Version")
-  .IsDependentOn("Restore")
     .Does(() => {
    var result = GitVersion(new GitVersionSettings {
         UpdateAssemblyInfo = true
@@ -89,30 +87,34 @@ Task("Pack")
 Task("PublishNuget")
  .IsDependentOn("Pack")
  .Does(context => {
-         
-         foreach(var file in GetFiles("./.artifacts/*.nupkg"))
-          {
-            Information("Publishing {0}...", file.GetFilename().FullPath);
-                 DotNetNuGetPush(file, new DotNetNuGetPushSettings {
-                     ApiKey = context.EnvironmentVariable("NUGET_API_KEY"),
-                     Source = "https://api.nuget.org/v3/index.json"
-                 });
-          }
+   if (BuildSystem.GitHubActions.IsRunningOnGitHubActions)
+   {
+     foreach(var file in GetFiles("./.artifacts/*.nupkg"))
+     {
+       Information("Publishing {0}...", file.GetFilename().FullPath);
+       DotNetNuGetPush(file, new DotNetNuGetPushSettings {
+          ApiKey = context.EnvironmentVariable("NUGET_API_KEY"),
+          Source = "https://api.nuget.org/v3/index.json"
+       });
+     }
+   }
  }); 
  
  Task("PublishGithub")
   .IsDependentOn("Pack")
   .Does(context => {
-  
+  if (BuildSystem.GitHubActions.IsRunningOnGitHubActions)
+   {
       foreach(var file in GetFiles("./.artifacts/*.nupkg"))
-               {
-                      Information("Publishing {0}...", file.GetFilename().FullPath);
-                       DotNetNuGetPush(file, new DotNetNuGetPushSettings {
-                          ApiKey = EnvironmentVariable("GITHUB_TOKEN"),
-                          Source = "https://nuget.pkg.github.com/threenine/index.json"
-                      });
-               }  
-  }); 
+      {
+        Information("Publishing {0}...", file.GetFilename().FullPath);
+        DotNetNuGetPush(file, new DotNetNuGetPushSettings {
+              ApiKey = EnvironmentVariable("GITHUB_TOKEN"),
+              Source = "https://nuget.pkg.github.com/threenine/index.json"
+        });
+      } 
+   } 
+ }); 
 
 
 
