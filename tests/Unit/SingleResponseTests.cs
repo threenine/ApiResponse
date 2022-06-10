@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Threenine.ApiResponse.Tests;
 
-public class SIngleResponseTests
+public class SingleResponseTests
 {
     [Theory, Description("Ensure SingleResponse has properties defined")]
     [InlineData("Item", typeof(TestClass))]
@@ -23,5 +23,4 @@ public class SIngleResponseTests
 
 public class TestClass
 {
-    
 }
