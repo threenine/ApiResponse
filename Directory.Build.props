@@ -1,4 +1,5 @@
 <Project>
+   
     <PropertyGroup>
         <Title>API Response</Title>
         <Authors>Gary Woodfine</Authors>
@@ -8,6 +9,7 @@
         <RepositoryUrl>https://github.com/threenine/apiResponse</RepositoryUrl>
         <PackageProjectUrl>https://threenine.co.uk</PackageProjectUrl>
         <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>10</LangVersion>
         <RootNamespace>Threenine</RootNamespace>
     </PropertyGroup>
 </Project>
