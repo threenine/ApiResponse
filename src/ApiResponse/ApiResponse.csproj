@@ -3,15 +3,9 @@
     <PropertyGroup>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <IsPackable>true</IsPackable>
-        <PackageIcon>icon.png</PackageIcon>
         <AssemblyName>Threenine.ApiResponse</AssemblyName>
         
         
     </PropertyGroup>
-    <ItemGroup>
-        <Content Include="icon.png" Pack="true" PackagePath="\">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
 
 </Project>
