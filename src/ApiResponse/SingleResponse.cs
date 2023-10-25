@@ -13,5 +13,6 @@ namespace Threenine.ApiResponse
             Item = model;
         }
         public TModel Item { get; }
+        public List<Actions> Actions { get; set; }
     }
 }

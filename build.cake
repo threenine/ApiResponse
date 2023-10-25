@@ -87,6 +87,7 @@ Task("Pack")
     
     DotNetPack("./ApiResponse.sln", settings);
  });
+ 
 Task("PublishNuget")
  .IsDependentOn("Pack")
  .Does(context => {

@@ -8,7 +8,7 @@
         <PackageTags>api project, api endpoints, response</PackageTags>
         <RepositoryUrl>https://github.com/threenine/apiResponse</RepositoryUrl>
         <PackageProjectUrl>https://threenine.co.uk</PackageProjectUrl>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <LangVersion>10</LangVersion>
         <RootNamespace>Threenine</RootNamespace>
         <PackageIcon>icon.png</PackageIcon>
