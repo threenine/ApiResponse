@@ -1,4 +1,4 @@
-namespace Threenine.ApiResponse;
+namespace Threenine;
 
 public interface ICreatedResponse
 {

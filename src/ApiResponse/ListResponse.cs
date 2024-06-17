@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Threenine.ApiResponse
+namespace Threenine
 {
     /// <summary>
     /// Provides support for pagination of list objects

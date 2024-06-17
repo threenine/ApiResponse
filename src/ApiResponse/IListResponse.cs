@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Threenine.ApiResponse
+namespace Threenine
 {
     /// <summary>
     /// Marker interface to define list response

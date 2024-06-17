@@ -1,4 +1,4 @@
-namespace Threenine.ApiResponse
+namespace Threenine
 {
     /// <summary>
     /// Marker interface to define a Single Response

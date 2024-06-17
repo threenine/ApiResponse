@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Threenine.ApiResponse
+namespace Threenine
 {
     /// <summary>
     /// Provides response template for single entity
