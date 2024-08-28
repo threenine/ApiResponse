@@ -8,13 +8,13 @@ using Xunit;
 
 namespace Threenine.ApiResponse.Tests
 {
-    public class ListResponseTests
+    public class PaginatedResponseTests
     {
         [Fact]
         [Description("Ensure default properties exist on instantiated object")]
         public void Should_have_default_properties()
         {
-            var testClass = new ListResponse<DummyListResponseClass>(null);
+            var testClass = new PaginatedResponse<DummyListResponseClass>(null);
 
             testClass.Items.ShouldBeAssignableTo<IEnumerable<DummyListResponseClass>>();
             testClass.IsValid.ShouldBeAssignableTo<bool>();
@@ -27,7 +27,7 @@ namespace Threenine.ApiResponse.Tests
         public void Should_set_and_get_properties()
         {
             var testClass =
-                new ListResponse<DummyListResponseClass>(Builder<DummyListResponseClass>.CreateListOfSize(100).Build().ToList())
+                new PaginatedResponse<DummyListResponseClass>(Builder<DummyListResponseClass>.CreateListOfSize(100).Build().ToList())
                 {
                     Page = 10,
                     PerPage = 10,
@@ -45,7 +45,7 @@ namespace Threenine.ApiResponse.Tests
             
         }
         
-        [Theory, Description("Ensure ListResponse has properties defined")]
+        [Theory, Description("Ensure PaginatedResponse has properties defined")]
         [InlineData("Items", typeof(List<DummyListResponseClass>))]
         [InlineData("Size", typeof(int))]
         [InlineData("Page", typeof(int))]
@@ -55,7 +55,7 @@ namespace Threenine.ApiResponse.Tests
         [InlineData("HasNext", typeof(bool))]
         public void Should_have_base_fields_defined(string name, Type type)
         {
-            var testClass = typeof(ListResponse<DummyListResponseClass>);
+            var testClass = typeof(PaginatedResponse<DummyListResponseClass>);
             var prop = testClass.GetProperty(name);
 
             prop.ShouldSatisfyAllConditions(

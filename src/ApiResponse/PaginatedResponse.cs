@@ -6,9 +6,9 @@ namespace Threenine
     /// Provides support for pagination of list objects
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    public class ListResponse<TModel> : BaseResponse, IListResponse<TModel> where TModel : class
+    public class PaginatedResponse<TModel> : BaseResponse, IPaginatedResponse<TModel> where TModel : class
     {
-        public ListResponse(List<TModel> model,  List<KeyValuePair<string, string[]>> validationErrors = null) : base(validationErrors)
+        public PaginatedResponse(List<TModel> model,  List<KeyValuePair<string, string[]>> validationErrors = null) : base(validationErrors)
         {
             Items = model;
         }

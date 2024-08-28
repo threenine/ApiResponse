@@ -1,6 +1,6 @@
 using System;
 
-namespace Threenine.ApiResponse;
+namespace Threenine;
 
 /// <summary>
 /// Actions are used to describe the actions that can be performed on a resource.
