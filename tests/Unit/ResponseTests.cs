@@ -1,24 +1,26 @@
-using System.Collections.Generic;
-using FizzWare.NBuilder;
+using System;
+using System.ComponentModel;
 using Shouldly;
 using Xunit;
 
-namespace Threenine.ApiResponse.Tests
-{
-    public class ResponseTests
-    {
-        [Fact]
-        public void Should_have_default_properties()
-        {
-            var testClass = new SingleResponse<DummyResponseClass>(null);
+namespace Threenine.ApiResponse.Tests;
 
-            testClass.Item.ShouldBeAssignableTo<DummyResponseClass>();
-           
-        }
-    }
-    
-    public class DummyResponseClass
+public class ResponseTests
+{
+    [Theory, Description("Ensure Response has properties defined")]
+    [InlineData("Item", typeof(TestClass))]
+    public void Should_have_base_fields_defined(string name, Type type)
     {
-        
+        var testClass = typeof(Response<TestClass>);
+        var prop = testClass.GetProperty(name);
+
+        prop.ShouldSatisfyAllConditions(
+            () => prop.ShouldNotBeNull(),
+            () => prop?.PropertyType.ShouldBeEquivalentTo(type)
+        );
     }
+}
+
+public class TestClass
+{
 }

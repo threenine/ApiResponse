@@ -25,25 +25,22 @@ Task("Restore")
               } 
 });
 
-Task("Version")
-    .Does(() => {
-   var result = GitVersion(new GitVersionSettings {
-        UpdateAssemblyInfo = true
-    });
-    
-    version = result.NuGetVersionV2;
-    Information($"Version: { version }");
-});
 
 Task("Build")
-    .IsDependentOn("Version")
+    .IsDependentOn("Restore")
     .Does(() => {
+       var result = GitVersion(new GitVersionSettings {
+            UpdateAssemblyInfo = true
+        });
+        
+      
+        Information($"Version: { result }");
      var buildSettings = new DotNetBuildSettings {
                         Configuration = configuration,
                         MSBuildSettings = new DotNetMSBuildSettings()
-                                                      .WithProperty("Version", version)
-                                                      .WithProperty("AssemblyVersion", version)
-                                                      .WithProperty("FileVersion", version)
+                                                      .WithProperty("Version", result.FullSemVer)
+                                                      .WithProperty("AssemblyVersion", result.AssemblySemVer)
+                                                      .WithProperty("FileVersion", result.FullSemVer)
                        };
      var projects = GetFiles("./**/*.csproj");
      foreach(var project in projects )
@@ -73,6 +70,11 @@ Task("Pack")
  .IsDependentOn("Test")
  .Does(() => {
  
+  var result = GitVersion(new GitVersionSettings {
+             UpdateAssemblyInfo = true
+         });
+         
+       
    var settings = new DotNetPackSettings
     {
         Configuration = configuration,
@@ -80,9 +82,9 @@ Task("Pack")
         NoBuild = true,
         NoRestore = true,
         MSBuildSettings = new DotNetMSBuildSettings()
-                        .WithProperty("PackageVersion", version)
+                        .WithProperty("PackageVersion", result.NuGetVersionV2)
                         .WithProperty("Copyright", $"© Copyright threenine.co.uk {DateTime.Now.Year}")
-                        .WithProperty("Version", version)
+                        .WithProperty("Version", result.FullSemVer)
     };
     
     DotNetPack("./ApiResponse.sln", settings);
@@ -129,7 +131,6 @@ Task("PublishNuget")
 Task("Default")
        .IsDependentOn("Clean")
        .IsDependentOn("Restore")
-       .IsDependentOn("Version")
        .IsDependentOn("Build")
        .IsDependentOn("Test")
        .IsDependentOn("Pack")

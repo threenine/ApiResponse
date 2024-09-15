@@ -31,7 +31,7 @@ namespace Threenine.ApiResponse.Tests
                 {
                     Page = 10,
                     PerPage = 10,
-                    TotalPages = 10,
+                    Total = 10,
                     Size = 100
                 };
 
@@ -39,7 +39,7 @@ namespace Threenine.ApiResponse.Tests
             testClass.Items.Count.ShouldBe(100);
             testClass.Page.ShouldBe(10);
             testClass.PerPage.ShouldBe(10);
-            testClass.TotalPages.ShouldBe(10);
+            testClass.Total.ShouldBe(10);
             testClass.Size.ShouldBe(100);
             
             
@@ -50,7 +50,7 @@ namespace Threenine.ApiResponse.Tests
         [InlineData("Size", typeof(int))]
         [InlineData("Page", typeof(int))]
         [InlineData("PerPage", typeof(int))]
-        [InlineData("TotalPages", typeof(int))]
+        [InlineData("Total", typeof(int))]
         [InlineData("HasPrevious", typeof(bool))]
         [InlineData("HasNext", typeof(bool))]
         public void Should_have_base_fields_defined(string name, Type type)
