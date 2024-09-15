@@ -14,6 +14,6 @@ namespace Threenine
             Item = model;
         }
         public TModel Item { get; }
-        public List<Actions> Actions { get; set; }
+       
     }
 }
