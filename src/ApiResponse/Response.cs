@@ -1,19 +1,19 @@
+using System;
 using System.Collections.Generic;
+namespace Threenine;
 
-
-namespace Threenine
+/// <summary>
+/// Provides response template for single entity
+/// </summary>
+/// <typeparam name="TModel"></typeparam>
+public class Response<TModel>(TModel model, List<KeyValuePair<string, string[]>> validationErrors = null)
+    : BaseResponse(validationErrors), IResponse<TModel>
+    where TModel : class
 {
-    /// <summary>
-    /// Provides response template for single entity
-    /// </summary>
-    /// <typeparam name="TModel"></typeparam>
-    public class Response<TModel> : BaseResponse, IResponse<TModel> where TModel : class 
+    public TModel Item { get; } = model;
+        
+    public TModel Match<T>(Func<TModel, TModel> onSuccess, Func< List<KeyValuePair<string, string[]>>, TModel> onFailure)
     {
-        public Response(TModel model,  List<KeyValuePair<string, string[]>> validationErrors = null) : base(validationErrors)
-        {
-            Item = model;
-        }
-        public TModel Item { get; }
-       
+        return IsValid ? onSuccess(Item) : onFailure(Errors);
     }
 }

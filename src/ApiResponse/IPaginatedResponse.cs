@@ -21,7 +21,7 @@ namespace Threenine
     /// <typeparam name="TModel"></typeparam>
     public interface IPaginatedResponse<TModel> : IPaginatedResponse where TModel : class
     {
-        List<TModel> Items { get; }
+        IReadOnlyList<TModel> Items { get; }
        
     }
 }

@@ -8,10 +8,10 @@ namespace Threenine.ApiResponse.Tests;
 public class ResponseTests
 {
     [Theory, Description("Ensure Response has properties defined")]
-    [InlineData("Item", typeof(TestClass))]
+    [InlineData("Item", typeof(TestPoco))]
     public void Should_have_base_fields_defined(string name, Type type)
     {
-        var testClass = typeof(Response<TestClass>);
+        var testClass = typeof(Response<TestPoco>);
         var prop = testClass.GetProperty(name);
 
         prop.ShouldSatisfyAllConditions(
@@ -21,6 +21,3 @@ public class ResponseTests
     }
 }
 
-public class TestClass
-{
-}

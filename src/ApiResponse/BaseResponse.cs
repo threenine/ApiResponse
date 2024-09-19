@@ -6,15 +6,10 @@ namespace Threenine
     /// <summary>
     /// 
     /// </summary>
-    public abstract  class BaseResponse
+    public abstract class BaseResponse(List<KeyValuePair<string, string[]>> errors = null)
     {
-        protected BaseResponse( List<KeyValuePair<string, string[]>> errors = null)
-        {
-            Errors = errors ?? new List<KeyValuePair<string, string[]>>();
-        }
+        public bool IsValid => Errors.Count == 0;
 
-        public bool IsValid => !Errors.Any();
-
-        public List<KeyValuePair<string, string[]>> Errors { get; }
+        public List<KeyValuePair<string, string[]>> Errors { get; } = errors ?? [];
     }
 }

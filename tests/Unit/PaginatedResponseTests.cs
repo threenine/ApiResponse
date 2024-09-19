@@ -14,9 +14,9 @@ namespace Threenine.ApiResponse.Tests
         [Description("Ensure default properties exist on instantiated object")]
         public void Should_have_default_properties()
         {
-            var testClass = new PaginatedResponse<DummyListResponseClass>(null);
+            var testClass = new PaginatedResponse<TestPoco>(null);
 
-            testClass.Items.ShouldBeAssignableTo<IEnumerable<DummyListResponseClass>>();
+            testClass.Items.ShouldBeAssignableTo<IEnumerable<TestPoco>>();
             testClass.IsValid.ShouldBeAssignableTo<bool>();
             testClass.Page.ShouldBeAssignableTo<int>();
             testClass.PerPage.ShouldBeAssignableTo<int>();
@@ -27,7 +27,7 @@ namespace Threenine.ApiResponse.Tests
         public void Should_set_and_get_properties()
         {
             var testClass =
-                new PaginatedResponse<DummyListResponseClass>(Builder<DummyListResponseClass>.CreateListOfSize(100).Build().ToList())
+                new PaginatedResponse<TestPoco>(Builder<TestPoco>.CreateListOfSize(100).Build().ToList())
                 {
                     Page = 10,
                     PerPage = 10,
@@ -35,7 +35,7 @@ namespace Threenine.ApiResponse.Tests
                     Size = 100
                 };
 
-            testClass.Items.ShouldBeAssignableTo<List<DummyListResponseClass>>();
+            testClass.Items.ShouldBeAssignableTo<List<TestPoco>>();
             testClass.Items.Count.ShouldBe(100);
             testClass.Page.ShouldBe(10);
             testClass.PerPage.ShouldBe(10);
@@ -46,7 +46,7 @@ namespace Threenine.ApiResponse.Tests
         }
         
         [Theory, Description("Ensure PaginatedResponse has properties defined")]
-        [InlineData("Items", typeof(List<DummyListResponseClass>))]
+        [InlineData("Items", typeof(IReadOnlyList<TestPoco>))]
         [InlineData("Size", typeof(int))]
         [InlineData("Page", typeof(int))]
         [InlineData("PerPage", typeof(int))]
@@ -55,7 +55,7 @@ namespace Threenine.ApiResponse.Tests
         [InlineData("HasNext", typeof(bool))]
         public void Should_have_base_fields_defined(string name, Type type)
         {
-            var testClass = typeof(PaginatedResponse<DummyListResponseClass>);
+            var testClass = typeof(PaginatedResponse<TestPoco>);
             var prop = testClass.GetProperty(name);
 
             prop.ShouldSatisfyAllConditions(
@@ -65,9 +65,5 @@ namespace Threenine.ApiResponse.Tests
         }
     }
    
-    public class DummyListResponseClass
-    {
-        public string Name { get; set; }
-        public string  last { get; set; }
-    }
+   
 }

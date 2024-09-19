@@ -2,7 +2,7 @@
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
-string version = String.Empty;
+
 //////////////////////////////////////////////////////////////////////
 // TASKS
 //////////////////////////////////////////////////////////////////////
@@ -29,18 +29,18 @@ Task("Restore")
 Task("Build")
     .IsDependentOn("Restore")
     .Does(() => {
-       var result = GitVersion(new GitVersionSettings {
+       var version = GitVersion(new GitVersionSettings {
             UpdateAssemblyInfo = true
         });
         
       
-        Information($"Version: { result }");
+        Information($"Version: { version }");
      var buildSettings = new DotNetBuildSettings {
                         Configuration = configuration,
                         MSBuildSettings = new DotNetMSBuildSettings()
-                                                      .WithProperty("Version", result.FullSemVer)
-                                                      .WithProperty("AssemblyVersion", result.AssemblySemVer)
-                                                      .WithProperty("FileVersion", result.FullSemVer)
+                                                      .WithProperty("Version", version.FullSemVer)
+                                                      .WithProperty("AssemblyVersion", version.AssemblySemVer)
+                                                      .WithProperty("FileVersion", version.FullSemVer)
                        };
      var projects = GetFiles("./**/*.csproj");
      foreach(var project in projects )
@@ -84,7 +84,7 @@ Task("Pack")
         MSBuildSettings = new DotNetMSBuildSettings()
                         .WithProperty("PackageVersion", result.NuGetVersionV2)
                         .WithProperty("Copyright", $"© Copyright threenine.co.uk {DateTime.Now.Year}")
-                        .WithProperty("Version", result.FullSemVer)
+                        .WithProperty("Version", result.AssemblySemVer)
     };
     
     DotNetPack("./ApiResponse.sln", settings);
