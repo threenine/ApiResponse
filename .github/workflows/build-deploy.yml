@@ -16,7 +16,8 @@ jobs:
           dotnet-version: 8.0.x 
     - name: Check out Code
       uses: actions/checkout@v4
-
+      with:
+        fetch-depth: 0
     - name: Run the Cake script
       uses: cake-build/cake-action@v2
       with:
