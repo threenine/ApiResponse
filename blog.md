@@ -1,4 +1,4 @@
-### API Response
+## API Response
 
 Often when developing public or even internal facing REST API's it's best to define a standard structure and format of your response objects. The primary reason behind this is two fold really, the most important being that you want to simply as much possible the cognitive load required for users to become familiar and use your API.  Secondly, it will be easier for your developers to implement various API calls, because they know exactly what is required and they then only have to focus on the business logic implementation.
 

@@ -2,6 +2,8 @@
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
+var nuget_api_key = Argument("nuget_api_key", "");
+var github_token = Argument("github_token", "");
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -99,7 +101,7 @@ Task("PublishNuget")
      {
        Information("Publishing {0}...", file.GetFilename().FullPath);
        DotNetNuGetPush(file, new DotNetNuGetPushSettings {
-          ApiKey = context.EnvironmentVariable("NUGET_API_KEY"),
+          ApiKey = nuget_api_key,
           Source = "https://api.nuget.org/v3/index.json"
        });
      }
@@ -115,7 +117,7 @@ Task("PublishNuget")
       {
         Information("Publishing {0}...", file.GetFilename().FullPath);
         DotNetNuGetPush(file, new DotNetNuGetPushSettings {
-              ApiKey = EnvironmentVariable("GITHUB_TOKEN"),
+              ApiKey = github_token,
               Source = "https://nuget.pkg.github.com/threenine/index.json"
         });
       } 
