@@ -32,16 +32,14 @@ Task("Build")
     .IsDependentOn("Restore")
     .Does(() => {
        
-       var version = GitVersion(new GitVersionSettings {
-           Branch = "main"
-        });
+       var version = GitVersion(new GitVersionSettings {});
        
      var buildSettings = new DotNetBuildSettings {
                         Configuration = configuration,
                         MSBuildSettings = new DotNetMSBuildSettings()
                                                       .WithProperty("Version", version.FullSemVer)
-                                                      .WithProperty("AssemblyVersion", version.AssemblySemVer)
-                                                      .WithProperty("FileVersion", version.FullSemVer)
+                                                      .WithProperty("AssemblyVersion", version.AssemblySemFileVer)
+                                                      .WithProperty("FileVersion", version.AssemblySemFileVer)
                        };
      var projects = GetFiles("./src/**/*.csproj");
      foreach(var project in projects )
