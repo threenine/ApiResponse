@@ -1,4 +1,4 @@
-#tool dotnet:?package=GitVersion.Tool&version=5.12.0
+#tool dotnet:?package=GitVersion.Tool&version=6.0.2
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
@@ -33,7 +33,7 @@ Task("Build")
     .Does(() => {
        
        var version = GitVersion(new GitVersionSettings {
-            UpdateAssemblyInfo = true
+           Branch = "main"
         });
        
      var buildSettings = new DotNetBuildSettings {
@@ -43,7 +43,7 @@ Task("Build")
                                                       .WithProperty("AssemblyVersion", version.AssemblySemVer)
                                                       .WithProperty("FileVersion", version.FullSemVer)
                        };
-     var projects = GetFiles("./**/*.csproj");
+     var projects = GetFiles("./src/**/*.csproj");
      foreach(var project in projects )
      {
          Information($"Building {project.ToString()}");
@@ -71,8 +71,8 @@ Task("Pack")
  .IsDependentOn("Test")
  .Does(() => {
  
-  var result = GitVersion(new GitVersionSettings {
-             UpdateAssemblyInfo = true
+  var version = GitVersion(new GitVersionSettings {
+            Branch = "main"
          });
          
        
@@ -83,9 +83,9 @@ Task("Pack")
         NoBuild = true,
         NoRestore = true,
         MSBuildSettings = new DotNetMSBuildSettings()
-                        .WithProperty("PackageVersion", result.NuGetVersionV2)
+                        .WithProperty("PackageVersion", version.MajorMinorPatch)
                         .WithProperty("Copyright", $"© Copyright threenine.co.uk {DateTime.Now.Year}")
-                        .WithProperty("Version", result.AssemblySemVer)
+                        .WithProperty("Version", version.AssemblySemVer)
     };
     
     DotNetPack("./ApiResponse.sln", settings);
