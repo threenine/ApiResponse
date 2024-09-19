@@ -1,4 +1,4 @@
-#tool dotnet:?package=GitVersion.Tool&version=6.0.2
+#tool dotnet:?package=GitVersion.Tool&version=5.12.0
 
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
@@ -81,7 +81,7 @@ Task("Pack")
         NoBuild = true,
         NoRestore = true,
         MSBuildSettings = new DotNetMSBuildSettings()
-                        .WithProperty("PackageVersion", version.MajorMinorPatch)
+                        .WithProperty("PackageVersion", version.NuGetVersionV2)
                         .WithProperty("Copyright", $"© Copyright threenine.co.uk {DateTime.Now.Year}")
                         .WithProperty("Version", version.AssemblySemVer)
     };
