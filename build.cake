@@ -31,12 +31,11 @@ Task("Restore")
 Task("Build")
     .IsDependentOn("Restore")
     .Does(() => {
+       
        var version = GitVersion(new GitVersionSettings {
             UpdateAssemblyInfo = true
         });
-        
-      
-        Information($"Version: { version }");
+       
      var buildSettings = new DotNetBuildSettings {
                         Configuration = configuration,
                         MSBuildSettings = new DotNetMSBuildSettings()
